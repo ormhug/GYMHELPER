@@ -12,7 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('guests', function (Blueprint $table) {
-            $table->id();
+            // 1. Первичный ключ (PK: guest_id)
+            $table->id('guest_id'); 
+            
+            // 2. Уникальный токен сессии (обязательное поле)
+            $table->string('session_token')->unique(); 
+            
+            // 3. Имя пользователя (может быть пустым)
+            $table->string('username')->nullable(); 
+            
+            // 4. Время последней активности (для очистки старых гостей)
+            $table->timestamp('last_activity_at')->nullable();
+            
+            // 5. Поля created_at и updated_at
             $table->timestamps();
         });
     }

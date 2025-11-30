@@ -12,7 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('supplies', function (Blueprint $table) {
-            $table->id();
+            // 1. Первичный ключ (PK: supply_id)
+            $table->id('supply_id'); 
+            
+            // 2. Основные поля
+            $table->string('title');
+            $table->text('description');
+            $table->string('category'); // Например, 'Протеин', 'Витамины'
+            $table->string('source_url')->nullable(); // Поле source
+            
+            // 3. Временные метки
             $table->timestamps();
         });
     }

@@ -12,8 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('guest_exercise', function (Blueprint $table) {
-            $table->id();
+            $table->id('guest_exercise_id');
+            $table->foreignId('guest_id')->constrained('guests');
+            $table->foreignId('exercise_id')->constrained('exercises');
+    
+            // Дополнительные поля
+            $table->string('note')->nullable(); 
             $table->timestamps();
+    
+            // !!! КОРРЕКЦИЯ: Добавление уникального индекса для правильного Many-to-Many
+            $table->unique(['guest_id', 'exercise_id']);
         });
     }
 
